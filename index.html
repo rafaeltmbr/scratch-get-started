@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scratch Get Started</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="code-button-wrapper">
+      <pre class="code-container"></pre>
+    </div>
+
+    <!-- Blockly root div -->
+    <div id="blocklyDiv"></div>
+
+    <!-- Tooblx -->
+    <xml id="toolbox" style="display: none">
+      <category name="Motion" colour="210" secondaryColour="210">
+        <block type="motion_movesteps">
+          <value name="STEPS">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="motion_turnright">
+          <value name="DEGREES">
+            <shadow type="math_number">
+              <field name="NUM">90</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
+      <category name="Events" colour="50" secondaryColour="50">
+        <block type="event_whenflagclicked"></block>
+      </category>
+      <category Name="Control" colour="30" secondaryColour="30">
+        <block type="control_if"> </block>
+        <block type="control_repeat">
+          <value name="TIMES">
+            <shadow type="math_number">
+              <field name="NUM">4</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
+      <category name="Operators" colour="100" secondaryColour="100">
+        <block type="operator_gt">
+          <value name="OPERAND1">
+            <shadow type="text">
+              <field name="TEXT">7</field>
+            </shadow>
+          </value>
+          <value name="OPERAND2">
+            <shadow type="text">
+              <field name="TEXT">5</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="operator_and"></block>
+        <block type="operator_or"></block>
+        <block type="operator_not"></block>
+      </category>
+    </xml>
+
+    <!-- Code that starts in the Blockly workspace area -->
+    <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
+      <block type="motion_movesteps">
+        <value name="STEPS">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+    </xml>
+
+    <script src="./blockly_compressed_vertical.js"></script>
+    <script src="./msg/messages.js"></script>
+    <script src="./msg/scratch_msgs.js"></script>
+    <script src="./blocks_vertical/vertical_extensions.js"></script>
+    <script src="./blocks_common/math.js"></script>
+    <script src="./blocks_common/matrix.js"></script>
+    <script src="./blocks_common/note.js"></script>
+    <script src="./blocks_common/text.js"></script>
+    <script src="./blocks_common/colour.js"></script>
+    <script src="./blocks_vertical/control.js"></script>
+    <script src="./blocks_vertical/event.js"></script>
+    <script src="./blocks_vertical/motion.js"></script>
+    <script src="./blocks_vertical/looks.js"></script>
+    <script src="./blocks_vertical/procedures.js"></script>
+    <script src="./blocks_vertical/operators.js"></script>
+    <script src="./blocks_vertical/sound.js"></script>
+    <script src="./blocks_vertical/sensing.js"></script>
+    <script src="./blocks_vertical/data.js"></script>
+    <script src="./blocks_vertical/extensions.js"></script>
+    <script src="./blocks_vertical/default_toolbox.js"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
