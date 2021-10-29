@@ -6,10 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scratch Get Started</title>
     <link rel="stylesheet" href="./index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css"
+    />
   </head>
   <body>
     <div class="code-button-wrapper">
-      <pre class="code-container"></pre>
+      <pre><code class="code-container language-c"></code></pre>
     </div>
 
     <!-- Blockly root div -->
@@ -108,6 +112,10 @@
     <script src="./blocks_vertical/data.js"></script>
     <script src="./blocks_vertical/extensions.js"></script>
     <script src="./blocks_vertical/default_toolbox.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/languages/c.min.js"></script>
+
     <script src="./parse_html_unknown_element.js"></script>
     <script src="./transpile_code.js"></script>
     <script src="./index.js"></script>

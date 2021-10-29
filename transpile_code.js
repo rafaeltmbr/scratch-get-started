@@ -92,7 +92,7 @@ const blockHandlers = {
     const statement = args.find((e) => initialSpaceCount(e) === 2) || "";
     const next = args.find((e) => initialSpaceCount(e) === 1) || "";
 
-    return `if(${condition}) {\n${statement}}\n${next}`;
+    return `if (${condition}) {\n${statement}}\n${next}`;
   },
 
   control_if_else: (args) => {
@@ -101,7 +101,7 @@ const blockHandlers = {
     const stt2 = args.find((e) => initialSpaceCount(e) === 3) || "";
     const next = args.find((e) => initialSpaceCount(e) === 1) || "";
 
-    return `if(${condition}) {\n${stt1}} else {\n${stt2}}\n${next}`;
+    return `if (${condition}) {\n${stt1}} else {\n${stt2}}\n${next}`;
   },
 
   control_repeat: ([condition, statement, ...next]) =>

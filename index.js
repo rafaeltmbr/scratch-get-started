@@ -31,7 +31,9 @@ window.addEventListener("load", () => {
   function showXmlStructure() {
     const xml = Blockly.Xml.workspaceToDom(workspace);
 
-    codeContainer.innerText = transpileCode(parseHTMLUnknownElement(xml));
+    const code = transpileCode(parseHTMLUnknownElement(xml));
+
+    codeContainer.innerHTML = hljs.highlight(code, { language: "c" }).value;
   }
 
   // insert the start code into Blockly workspace area (optional)
