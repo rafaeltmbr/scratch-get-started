@@ -66,7 +66,11 @@
     </xml>
 
     <!-- Code that starts in the Blockly workspace area -->
-    <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
+    <xml
+      xmlns="https://developers.google.com/blockly/xml"
+      id="startBlocks"
+      style="display: none"
+    >
       <block type="motion_movesteps">
         <value name="STEPS">
           <shadow type="math_number">
@@ -96,6 +100,8 @@
     <script src="./blocks_vertical/data.js"></script>
     <script src="./blocks_vertical/extensions.js"></script>
     <script src="./blocks_vertical/default_toolbox.js"></script>
+    <script src="./parse_html_unknown_element.js"></script>
+    <script src="./transpile_code.js"></script>
     <script src="./index.js"></script>
   </body>
 </html>
