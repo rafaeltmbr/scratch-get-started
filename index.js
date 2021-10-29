@@ -31,10 +31,7 @@ window.addEventListener("load", () => {
   function showXmlStructure() {
     const xml = Blockly.Xml.workspaceToDom(workspace);
 
-    window.xxml = xml;
-    console.log(xml);
-
-    codeContainer.innerText = handleTranspilation(parseHTMLUnknownElement(xml));
+    codeContainer.innerText = transpileCode(parseHTMLUnknownElement(xml));
   }
 
   // insert the start code into Blockly workspace area (optional)
