@@ -35,23 +35,33 @@ const transpilationHandlers = {
 };
 
 const blockHandlers = {
-  motion_movesteps: ([value, ...next]) => {
-    const instruction = value ? `move(${value});\n` : "";
-
-    return `${instruction}${next.join("")}`;
-  },
-
-  motion_turnright: ([value, ...next]) => {
-    const instruction = value ? `turn_right(${value});\n` : "";
-
-    return `${instruction}${next.join("")}`;
-  },
-
   motion_turnleft: ([value, ...next]) => {
     const instruction = value ? `turn_left(${value});\n` : "";
 
     return `${instruction}${next.join("")}`;
   },
+
+  control_if: (args) => {
+    const condition = args.find((e) => initialSpaceCount(e) === 0) || "0";
+    const statement = args.find((e) => initialSpaceCount(e) === 2) || "";
+    const next = args.find((e) => initialSpaceCount(e) === 1) || "";
+
+    return `if (${condition}) {\n${statement}}\n${next}`;
+  },
+
+  control_if_else: (args) => {
+    const condition = args.find((e) => initialSpaceCount(e) === 0) || "0";
+    const stt1 = args.find((e) => initialSpaceCount(e) === 2) || "";
+    const stt2 = args.find((e) => initialSpaceCount(e) === 3) || "";
+    const next = args.find((e) => initialSpaceCount(e) === 1) || "";
+
+    return `if (${condition}) {\n${stt1}} else {\n${stt2}}\n${next}`;
+  },
+
+  control_repeat: ([condition, statement, ...next]) =>
+    `for (int i = 0; i < ${condition || "0"}; i += 1) {\n${
+      statement || "\n"
+    }}\n${next.join("")}`,
 
   operator_gt: (values) => {
     const [operand1, operand2] = values.map((e) => e.trim()).filter((e) => e);
@@ -87,30 +97,21 @@ const blockHandlers = {
     return op1 ? `!${op1}` : "";
   },
 
-  control_if: (args) => {
-    const condition = args.find((e) => initialSpaceCount(e) === 0) || "";
-    const statement = args.find((e) => initialSpaceCount(e) === 2) || "";
-    const next = args.find((e) => initialSpaceCount(e) === 1) || "";
-
-    return `if (${condition}) {\n${statement}}\n${next}`;
-  },
-
-  control_if_else: (args) => {
-    const condition = args.find((e) => initialSpaceCount(e) === 0) || "";
-    const stt1 = args.find((e) => initialSpaceCount(e) === 2) || "";
-    const stt2 = args.find((e) => initialSpaceCount(e) === 3) || "";
-    const next = args.find((e) => initialSpaceCount(e) === 1) || "";
-
-    return `if (${condition}) {\n${stt1}} else {\n${stt2}}\n${next}`;
-  },
-
-  control_repeat: ([condition, statement, ...next]) =>
-    `for (int i = 0; i < ${condition || "0"}; i += 1) {\n${
-      statement || "\n"
-    }}\n${next.join("")}`,
-
   event_whenflagclicked: (values) =>
     `void when_flag_is_clicked() {\n${values.join("")}}\n`,
+
+  motion_movesteps: ([value, ...next]) => {
+    const instruction = value !== undefined ? `move(${value || 0});\n` : "";
+
+    return `${instruction}${next.join("")}`;
+  },
+
+  motion_turnright: ([value, ...next]) => {
+    const instruction =
+      value !== undefined ? `turn_right(${value || 0});\n` : "";
+
+    return `${instruction}${next.join("")}`;
+  },
 };
 
 const initialSpaceCount = (value) => {
