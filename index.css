@@ -14,17 +14,15 @@ body {
 }
 
 .code-button-wrapper {
+  width: 50ch;
   height: calc(100vh - 2rem);
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: stretch;
-  padding-right: 1rem;
+  margin-right: 1rem;
 }
 
 #blocklyDiv {
   flex: 1;
   height: calc(100vh - 2rem);
+  overflow: hidden;
 }
 
 .code-button-wrapper pre {
