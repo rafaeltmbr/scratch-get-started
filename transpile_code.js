@@ -58,10 +58,12 @@ const blockHandlers = {
     return `if (${condition}) {\n${stt1}} else {\n${stt2}}\n${next}`;
   },
 
-  control_repeat: ([condition, statement, ...next]) =>
-    `for (int i = 0; i < ${condition || "0"}; i += 1) {\n${
-      statement || "\n"
-    }}\n${next.join("")}`,
+  control_repeat: ([condition, statement, ...next]) => {
+    const cond = wrapParenthesisIfNecessary(condition) || "0";
+    const stt = statement || "\n";
+
+    return `for (int i = 0; i < ${cond}; i += 1) {\n${stt}}\n${next.join("")}`;
+  },
 
   operator_gt: (values) => {
     const [operand1, operand2] = values.map((e) => e.trim()).filter((e) => e);
