@@ -12,7 +12,9 @@ const transpilationHandlers = {
   xml: ({ children }) => {
     const codeBlocks = children.filter((c) => c?.endsWith("\n"));
 
-    return codeBlocks.map((e) => adjustIndentation(e)).join("\n\n");
+    return `#include "./movement.h"\n\nvoid main() {\n${codeBlocks
+      .map((e) => adjustIndentation(e, 2))
+      .join("\n\n")}\n}\n`;
   },
 
   field: ({ value }) => value,
@@ -98,9 +100,6 @@ const blockHandlers = {
     const op1 = wrapParenthesisIfNecessary(operand1);
     return op1 ? `!${op1}` : "";
   },
-
-  event_whenflagclicked: (values) =>
-    `void when_flag_is_clicked() {\n${values.join("")}}\n`,
 
   motion_movesteps: ([value, ...next]) => {
     const instruction = value !== undefined ? `move(${value || 0});\n` : "";
