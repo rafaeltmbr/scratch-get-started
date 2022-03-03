@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Custom Procedure Playground</title>
+    <script src="../blockly_compressed_vertical.js"></script>
+    <script src="../msg/messages.js"></script>
+    <script src="../blocks_vertical/vertical_extensions.js"></script>
+    <script src="../blocks_common/math.js"></script>
+    <script src="../blocks_common/text.js"></script>
+    <script src="../blocks_common/colour.js"></script>
+    <script src="../blocks_vertical/procedures.js"></script>
+    <style>
+      body {
+        background-color: #fff;
+        font-family: sans-serif;
+      }
+      h1 {
+        font-weight: normal;
+        font-size: 140%;
+      }
+    </style>
+  </head>
+  <body>
+    <table width="100%">
+      <tr>
+        <td>
+          <div id="secondaryDiv" style="height: 480px; width: 600px"></div>
+        </td>
+        <td>
+          <div id="primaryDiv" style="height: 480px; width: 600px"></div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="editor-actions">
+          <button id="text_number" onclick="addTextNumber()">
+            Add text/number input
+          </button>
+          <button id="boolean" onclick="addBoolean()">Add boolean input</button>
+          <button id="label" onclick="addLabel()">Add label</button>
+          <button id="cancelButton" onclick="cancel()">cancel</button>
+          <button id="okButton" onclick="applyMutation()">ok</button>
+        </td>
+      </tr>
+    </table>
+
+    <xml id="toolbox" style="display: none">
+      <category
+        name="More"
+        colour="#FF6680"
+        secondaryColour="#FF4D6A"
+        custom="PROCEDURE"
+      >
+      </category>
+    </xml>
+
+    <script>
+      var editorActions = document.getElementById("editor-actions");
+      editorActions.style.visibility = "hidden";
+
+      var callback = null;
+      var mutationRoot = null;
+
+      var declarationWorkspace = Blockly.inject("primaryDiv", {
+        media: "../media/",
+        scrollbars: true,
+      });
+
+      declarationWorkspace.addChangeListener(function () {
+        if (mutationRoot) {
+          mutationRoot.onChangeFn();
+        }
+      });
+
+      var definitionWorkspace = Blockly.inject("secondaryDiv", {
+        media: "../media/",
+        toolbox: document.getElementById("toolbox"),
+        zoom: {
+          startScale: 0.75,
+        },
+      });
+
+      Blockly.Procedures.externalProcedureDefCallback = function (
+        mutation,
+        cb
+      ) {
+        editorActions.style.visibility = "visible";
+        callback = cb;
+        declarationWorkspace.clear();
+        mutationRoot = declarationWorkspace.newBlock("procedures_declaration");
+        mutationRoot.domToMutation(mutation);
+        mutationRoot.initSvg();
+        mutationRoot.render(false);
+        declarationWorkspace.scrollCenter();
+      };
+
+      function applyMutation() {
+        var mutation = mutationRoot.mutationToDom(
+          /* opt_generateShadows */ true
+        );
+        console.log(mutation);
+        callback(mutation);
+        callback = null;
+        mutationRoot = null;
+        declarationWorkspace.clear();
+        definitionWorkspace.refreshToolboxSelection_();
+        editorActions.style.visibility = "hidden";
+      }
+
+      function addLabel() {
+        mutationRoot.addLabelExternal();
+      }
+
+      function addBoolean() {
+        mutationRoot.addBooleanExternal();
+      }
+
+      function addTextNumber() {
+        mutationRoot.addStringNumberExternal();
+      }
+
+      function cancel() {
+        callback = null;
+        mutationRoot = null;
+        declarationWorkspace.clear();
+        definitionWorkspace.refreshToolboxSelection_();
+        editorActions.style.visibility = "hidden";
+      }
+    </script>
+  </body>
+</html>
